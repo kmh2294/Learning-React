@@ -45,6 +45,7 @@ class App extends Component {
 
     componentDidMount() {
         this.timer = setInterval(this.progress, 50);
+        this.callApi().then((res) => this.setState({ customers: res }));
     }
 
     callApi = async () => {
@@ -64,18 +65,22 @@ class App extends Component {
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
-                            <TableCell>번호</TableCell>
-                            <TableCell>이미지</TableCell>
-                            <TableCell>이름</TableCell>
-                            <TableCell>생년월일</TableCell>
-                            <TableCell>성별</TableCell>
-                            <TableCell>직업</TableCell>
+                            <TableRow>
+                                <TableCell>번호</TableCell>
+                                <TableCell>이미지</TableCell>
+                                <TableCell>이름</TableCell>
+                                <TableCell>생년월일</TableCell>
+                                <TableCell>성별</TableCell>
+                                <TableCell>직업</TableCell>
+                                <TableCell>설정</TableCell>
+                            </TableRow>
                         </TableHead>
                         <TableBody>
                             {this.state.customers ? (
                                 this.state.customers.map((c) => {
                                     return (
                                         <Customer
+                                            stateRefresh={this.stateRefresh}
                                             key={c.id}
                                             id={c.id}
                                             image={c.image}
